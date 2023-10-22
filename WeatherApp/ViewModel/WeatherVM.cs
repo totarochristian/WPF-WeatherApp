@@ -43,6 +43,31 @@ namespace WeatherApp.ViewModel
             }
         }
 
+        public WeatherVM()
+        {
+            //If the application is not running
+            if(DesignerProperties.GetIsInDesignMode(new System.Windows.DependencyObject()))
+            {
+                //initialize an example selected city
+                SelectedCity = new City
+                {
+                    LocalizedName = "Fiorano Modenese"
+                };
+                //Initialize an example current conditions
+                CurrentConditions = new CurrentConditions
+                {
+                    WeatherText = "Parzialmente nuvoloso",
+                    //Initialize an example temperature
+                    Temperature = new Temperature
+                    {
+                        Metric = new Units
+                        {
+                            Value = 19
+                        }
+                    }
+                };
+            }
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
