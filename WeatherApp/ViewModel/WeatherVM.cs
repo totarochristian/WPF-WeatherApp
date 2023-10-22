@@ -45,7 +45,7 @@ namespace WeatherApp.ViewModel
             }
         }
 
-        private SearchCommand SearchCommand { get; set; }
+        public SearchCommand SearchCommand { get; set; }
 
 
         public WeatherVM()
