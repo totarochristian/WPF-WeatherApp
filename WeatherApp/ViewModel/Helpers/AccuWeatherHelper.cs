@@ -10,5 +10,6 @@ namespace WeatherApp.ViewModel.Helpers
     {
         public const string BASE_URL = "http://dataservice.accuweather.com/";
         public const string AUTOCOMPLETE_ENDPOINT = "/locations/v1/cities/autocomplete?apikey={0}&q={1}&language=it-IT";
+        public const string API_KEY = "OVTXLxbNzHMcEJ8G8QpDqUaWYusMFiIq";
     }
 }
