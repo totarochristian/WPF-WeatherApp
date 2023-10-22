@@ -29,7 +29,7 @@
                 </ListView.ItemTemplate>
             </ListView>
         </StackPanel>
-        <Grid Grid.Row="1" Background="#4392f1">
+        <Grid Grid.Row="1" Background="#4392f1" DataContext="{Binding CurrentConditions}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
