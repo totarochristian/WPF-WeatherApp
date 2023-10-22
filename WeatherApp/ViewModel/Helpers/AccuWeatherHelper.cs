@@ -45,7 +45,7 @@ namespace WeatherApp.ViewModel.Helpers
                 var response = await client.GetAsync(url);
                 string json = await response.Content.ReadAsStringAsync();
 
-                currentConditions = JsonConvert.DeserializeObject<CurrentConditions>(json);
+                currentConditions = (JsonConvert.DeserializeObject<List<CurrentConditions>>(json)).FirstOrDefault();
             }
 
             return currentConditions;
