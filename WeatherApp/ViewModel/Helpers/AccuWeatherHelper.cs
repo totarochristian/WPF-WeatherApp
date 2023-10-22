@@ -20,15 +20,28 @@ namespace WeatherApp.ViewModel.Helpers
         public static async Task<List<City>> GetCities(string query)
         {
             List<City> cities = new List<City>();
-
-            string url = BASE_URL + string.Format(AUTOCOMPLETE_ENDPOINT, API_KEY, query);
-
-            using(HttpClient client = new HttpClient())
+            
+            try
             {
-                var response = await client.GetAsync(url);
-                string json = await response.Content.ReadAsStringAsync();
+                string url = BASE_URL + string.Format(AUTOCOMPLETE_ENDPOINT, API_KEY, query);
 
-                cities = JsonConvert.DeserializeObject<List<City>>(json);
+                using (HttpClient client = new HttpClient())
+                {
+                    var response = await client.GetAsync(url);
+                    string json = await response.Content.ReadAsStringAsync();
+
+                    //If the status isn't success, generate exception
+                    response.EnsureSuccessStatusCode();
+
+                    cities = JsonConvert.DeserializeObject<List<City>>(json);
+                }
+            }
+            catch(HttpRequestException hhtpReqEx)
+            {
+                Console.WriteLine("[AccuWeatherHelper][GetCities] HttpRequestException: " + hhtpReqEx.Message);
+            }catch(Exception ex)
+            {
+                Console.WriteLine("[AccuWeatherHelper][GetCities] Exception: " + ex.Message);
             }
 
             return cities;
@@ -38,14 +51,28 @@ namespace WeatherApp.ViewModel.Helpers
         {
             CurrentConditions currentConditions = new CurrentConditions();
 
-            string url = BASE_URL + string.Format(CONDITIONS_ENDPOINT, cityKey, API_KEY);
-
-            using (HttpClient client = new HttpClient())
+            try
             {
-                var response = await client.GetAsync(url);
-                string json = await response.Content.ReadAsStringAsync();
+                string url = BASE_URL + string.Format(CONDITIONS_ENDPOINT, cityKey, API_KEY);
 
-                currentConditions = (JsonConvert.DeserializeObject<List<CurrentConditions>>(json)).FirstOrDefault();
+                using (HttpClient client = new HttpClient())
+                {
+                    var response = await client.GetAsync(url);
+                    string json = await response.Content.ReadAsStringAsync();
+
+                    //If the status isn't success, generate exception
+                    response.EnsureSuccessStatusCode();
+
+                    currentConditions = (JsonConvert.DeserializeObject<List<CurrentConditions>>(json)).FirstOrDefault();
+                }
+            }
+            catch (HttpRequestException hhtpReqEx)
+            {
+                Console.WriteLine("[AccuWeatherHelper][GetCurrentConditions] HttpRequestException: " + hhtpReqEx.Message);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[AccuWeatherHelper][GetCurrentConditions] Exception: " + ex.Message);
             }
 
             return currentConditions;
