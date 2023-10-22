@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,8 @@ namespace WeatherApp.ViewModel
                 OnPropertyChanged("Query");
             }
         }
+
+        public ObservableCollection<City> Cities { get; set; }
 
         private CurrentConditions currentConditions;
 
@@ -75,11 +78,21 @@ namespace WeatherApp.ViewModel
 
             //Initialize the search command passing this instance of weather view model
             SearchCommand = new SearchCommand(this);
+
+            //Initialize the observable collection at the creation of the class because could be initialized only one time
+            Cities = new ObservableCollection<City>();
         }
 
         public async void MakeQuery()
         {
             var cities = await AccuWeatherHelper.GetCities(Query);
+
+            //The observable collection couldn't be re-initialized but could be cleared and then re-filled with new data
+            Cities.Clear();
+            foreach(var city in cities)
+            {
+                Cities.Add(city);
+            }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
