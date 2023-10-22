@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -25,6 +26,8 @@ namespace WeatherApp.ViewModel.Helpers
             {
                 var response = await client.GetAsync(url);
                 string json = await response.Content.ReadAsStringAsync();
+
+                cities = JsonConvert.DeserializeObject<List<City>>(json);
             }
 
             return cities;
