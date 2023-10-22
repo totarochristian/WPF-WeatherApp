@@ -32,5 +32,14 @@ namespace WeatherApp.ViewModel.Helpers
 
             return cities;
         }
+
+        public static async Task<CurrentConditions> GetCurrentConditions(string cityKey)
+        {
+            CurrentConditions currentConditions = new CurrentConditions();
+
+
+
+            return currentConditions;
+        }
     }
 }
