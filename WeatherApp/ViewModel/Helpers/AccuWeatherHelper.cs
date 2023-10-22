@@ -18,6 +18,8 @@ namespace WeatherApp.ViewModel.Helpers
         {
             List<City> cities = new List<City>();
 
+            string url = BASE_URL + string.Format(AUTOCOMPLETE_ENDPOINT, API_KEY, query);
+
             return cities;
         }
     }
