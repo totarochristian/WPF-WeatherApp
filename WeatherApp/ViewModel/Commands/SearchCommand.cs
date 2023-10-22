@@ -21,7 +21,11 @@ namespace WeatherApp.ViewModel.Commands
 
         public bool CanExecute(object? parameter)
         {
-            return true;
+            //The parameter is the value inserted by the user to search
+            string query = parameter as string;
+
+            //If the parameter is null or white space, return false and disable the button, otherwise return true
+            return string.IsNullOrWhiteSpace(query) ? false : true;
         }
 
         public void Execute(object? parameter)
