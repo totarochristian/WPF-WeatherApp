@@ -45,6 +45,7 @@ namespace WeatherApp.ViewModel
             set { 
                 selectedCity = value;
                 OnPropertyChanged("SelectedCity");
+                GetCurrentConditions();
             }
         }
 
@@ -81,6 +82,15 @@ namespace WeatherApp.ViewModel
 
             //Initialize the observable collection at the creation of the class because could be initialized only one time
             Cities = new ObservableCollection<City>();
+        }
+
+        private async void GetCurrentConditions()
+        {
+            //Clear the query value (searched value) and the cities observable collection (cities searched using autocomplete)
+            Query = string.Empty;
+            Cities.Clear();
+            //Retrieve the current conditions retrieved using the selected city key
+            CurrentConditions = await AccuWeatherHelper.GetCurrentConditions(SelectedCity.Key);
         }
 
         public async void MakeQuery()
