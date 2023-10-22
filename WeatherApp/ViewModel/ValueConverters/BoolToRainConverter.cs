@@ -30,6 +30,7 @@ namespace WeatherApp.ViewModel.ValueConverters
                     case "en-EN": return "Currently not raining";
                 }
             }
+            return string.Empty;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
